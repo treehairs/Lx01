@@ -1,0 +1,88 @@
+use works;
+CREATE TABLE UserInfo
+(
+UserName nvarchar(50) PRIMARY KEY,
+Password nvarchar(50) NOT NULL,
+QQ nvarchar(12),
+Email nvarchar(50),
+Type nchar(10) NOT NULL DEFAULT '∆’Õ®”√ªß',
+UserImg nvarchar(250));
+
+use works;
+CREATE TABLE Activity
+(
+ActivityID INT(4) PRIMARY KEY auto_increment,
+ActivityName nvarchar(125) NOT NULL,
+EndTime datetime(6) NOT NULL,
+ActivityPicture nvarchar(250) NOT NULL,
+ActivityIntroduction nvarchar(8000),
+Summary nvarchar(250),
+ActivityVerify nchar(10) NOT NULL DEFAULT '¥˝…Û∫À',
+ActivityStatus nchar(10),
+UserName nvarchar(50) NOT NULL);
+
+
+use works;
+CREATE TABLE WorkInfo
+(
+WorkID int(4) PRIMARY KEY auto_increment,
+WorkName nvarchar(50) NOT NULL,
+WorkPicture nvarchar(250) NOT NULL,
+UploadTime datetime(6) NOT NULL,
+WorkIntroduction nvarchar(8000),
+WorkVerify nchar(10) NOT NULL DEFAULT '¥˝…Û∫À',
+UserName nvarchar(50) NOT NULL,
+ActivityName nvarchar(125),
+Recommend nchar(2) NOT NULL DEFAULT '∑Ò',
+RecommendTime datetime(6)
+);
+
+
+use works;
+CREATE TABLE Comment
+(
+CommentID int(4) PRIMARY KEY auto_increment,
+WorkID int(4) NOT NULL,
+WorkName nvarchar(50) NOT NULL,
+UserName nvarchar(50) NOT NULL,
+CommentContent nvarchar(8000) NOT NULL,
+CommentTime datetime(6) NOT NULL
+);
+
+
+use works;
+CREATE TABLE Image
+(
+ImgID int(4) PRIMARY KEY auto_increment,
+ImgUrl nvarchar(50) NOT NULL,
+ImgText nvarchar(50) NOT NULL,
+ImgLink nvarchar(100) NOT NULL,
+
+ImgAlt nvarchar(50) NOT NULL
+);
+
+
+SELECT * from userinfo
+ALTER TABLE WorkInfo
+ADD FOREIGN KEY(UserName) 
+REFERENCES UserInfo(UserName);
+
+
+ALTER TABLE Comment
+ADD 
+FOREIGN KEY(WorkID) 
+REFERENCES WorkInfo(WorkID);
+
+
+ALTER TABLE Comment
+ADD 
+FOREIGN KEY(UserName) 
+REFERENCES UserInfo(UserName);
+
+
+ALTER TABLE Activity
+ADD 
+FOREIGN KEY(UserName) 
+REFERENCES UserInfo(UserName);
+
+
